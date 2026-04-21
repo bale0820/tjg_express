@@ -7,7 +7,7 @@ export const advertiseController = {
         try {
             const data = await advertiseService.getAdvertiseList();
 
-            res.status(200).json(data)
+            return res.status(200).json(data);
         } catch (err) {
             next(err);
         }
