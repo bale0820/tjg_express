@@ -12,8 +12,21 @@ export const loginService = {
         return null;
     },
 
-    findById : async (id: number): Promise<UserResponse | null> => {
+    findById: async (id: number): Promise<UserResponse | null> => {
         const user = await loginRepository.findById(id);
         return user;
+    },
+
+    findUserById: async (userId: string): Promise<boolean> => {
+        const user = await loginRepository.findByUserId(userId);
+        return user !== null;
+    },
+
+    signup : async (user: User): Promise<boolean> => {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        user.password = hashedPassword;
+        user.recommendation = user.recommendation === "" ? null : user.recommendation;
+        const result = await loginRepository.save(user);
+        return result;
     },
 };

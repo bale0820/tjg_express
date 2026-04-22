@@ -61,7 +61,6 @@ export const loginController = {
         const refreshToken = req.cookies["refresh_token"];
         const csrfCookie = req.cookies["XSRF-TOKEN"];
         const csrfHeader = req.header("X-XSRF-TOKEN");
-        console.log("refreshToken", refreshToken);
         if (!refreshToken) {
             return res.status(401).json({ error: "No refresh token" });
         }
@@ -123,7 +122,7 @@ export const loginController = {
             sameSite: "none"     // 대소문자 중요 (Express는 소문자)
         });
 
-          if (token) {
+        if (token) {
             await authService.verifyTokenAndDelete(token);
         }
 
@@ -142,6 +141,24 @@ export const loginController = {
 
         loginService.findById(id);
 
-    }
+    },
 
+    findUserIdById: async (req: Request, res: Response, next: NextFunction) => {
+
+        const { userId } = req.body;
+        console.log(userId);
+
+        const result = await loginService.findUserById(userId);
+        return res.json(result);
+
+    },
+
+    signup: async (req: Request, res: Response, next: NextFunction) => {
+
+        const user = req.body;
+
+        const result = await loginService.signup(user);
+        return res.json(result);
+
+    },
 };

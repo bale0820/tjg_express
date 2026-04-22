@@ -1,5 +1,4 @@
-export interface Cart  {
-    cid : number;
+export interface CreateCartDto  {
     addedAt : Date;
     qty : number;
     ppk : number;

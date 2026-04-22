@@ -1,10 +1,10 @@
 import { cartRepository } from "@/repository/cartRepository";
-import { Cart } from "@/types/domain/cart";
+import { Cartitem } from "@/types/dto/cartItem";
 import { NextFunction, Request, Response } from "express";
 
 
 export const cartService = {
-    async cartList(id : number) : Promise<Cart[]>  {
+    async cartList(id : number) : Promise<Cartitem[]>  {
             return  await cartRepository.findById(id);
     },
 
@@ -19,6 +19,26 @@ export const cartService = {
         
         return result;
     },
+
+
+    async addCart(qty : number, ppk : number, upk : number) : Promise<boolean> {
+        const findResult = await cartRepository.findByPpkAndUpk(ppk, upk);
+
+
+        if(findResult.length === 0) {
+            const cartData = {
+                qty,
+                ppk,
+                upk,
+                addedAt: new Date()
+            }
+
+            return cartRepository.save(cartData);
+        }
+        
+        findResult[0].qty += qty;
+        return await cartRepository.updateCart(findResult[0]);
+    }
 
 
 }

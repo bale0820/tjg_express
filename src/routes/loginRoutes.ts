@@ -10,4 +10,6 @@ router.post('/login', loginController.login);
 router.post('/refresh', loginController.refresh);
 router.post('/logout', loginController.logout);
 router.get('/user',authMiddleware, loginController.findUserById);
+router.post('/idcheck', loginController.findUserIdById);
+router.post('/signup', loginController.signup);
 export const  loginRoutes = router;
