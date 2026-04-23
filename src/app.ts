@@ -9,8 +9,18 @@ import { loginRoutes } from "./routes/loginRoutes";
 import cookieParser from "cookie-parser";
 import { cartRoutes } from "./routes/cartRoutes";
 import { orderRoutes } from "./routes/orderRoutes";
+import cors from "cors";
 // const express = require("express");
+
+
 const app = express();
+
+app.use(cors({
+  origin: "http://localhost:3000", // 허용할 프론트 주소
+  credentials: true               // 쿠키/인증 허용
+}));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -19,6 +29,7 @@ app.use('/advertise', advertiseRoutes);
 app.use('/category', categoryRoutes);
 app.use('/view', viewRoutes);
 app.use('/auth', loginRoutes);
+app.use('/member', loginRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
 
@@ -31,6 +42,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     });
 
 });
+
 
 
 app.listen(8080, () => { console.log('server running'); });

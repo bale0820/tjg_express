@@ -3,11 +3,11 @@ import { NextFunction, Request, Response } from "express";
 
 
 export const viewController = {
-    saveLog : async (req: Request, res: Response, next: NextFunction
+    saveLog: async (req: Request, res: Response, next: NextFunction
     ) => {
-        const {upk,ppk, categorySubId} = req.body;
+        const { upk, ppk, categorySubId } = req.body;
         try {
-            const data = await viewService.saveViewLog(upk,ppk, categorySubId);
+            const data = await viewService.saveViewLog(upk, ppk, categorySubId);
 
             res.status(200).json(data)
         } catch (err) {
@@ -16,16 +16,27 @@ export const viewController = {
 
     },
 
-     getRecentSubCategory : async (req: Request, res: Response, next: NextFunction
-    ) => {
+    getRecentSubCategory: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            // const data = await viewService.getRecentSubCategory ();
+            if (!req.user) {
+                return res.status(401).json({ error: "Unauthorized" });
+            }
 
-            // res.status(200).json(data)
+            const { id } = req.user;
+
+            const result = await viewService.getRecentSubCategory(id);
+
+            if (result === null) {
+                return res.json({ recentSubCategory: null });
+            }
+
+            return res.json({
+                recentSubCategory: result 
+            });
+
         } catch (err) {
             next(err);
         }
-
-    },
+    }
 
 };

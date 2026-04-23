@@ -57,4 +57,28 @@ export const cartCotroller = {
 
     },
 
+    addCart : async(req : Request, res : Response, next : NextFunction) => {
+
+        try {
+
+              if(!req.user) {
+
+                return res.status(401).json({ error: "Unauthorized" });
+                
+            }
+
+            const {qty, product} = req.body;
+            const id = req.user.id;
+            const result = await cartService.addCart(qty, product.id, id);
+            if(result) {
+                res.status(200).send();
+            }
+        }catch(err) {
+            next(err);
+        }
+
+
+    },
+    
+
 }
