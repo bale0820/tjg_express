@@ -3,7 +3,7 @@ import { promisePool as db } from "../config/db";
 import { Advertise } from "../types/domain/advertise";
 import { UserViewLogRow } from "@/types/db/userViewLogRow";
 import { toCamel } from "@/util/tocamel";
-import { ResultSetHeader } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 
 export const userViewLogRepository = {
@@ -29,5 +29,15 @@ export const userViewLogRepository = {
 
         return result.affectedRows === 1;
     },
+
+    findByUpkOrderByViewdAt :  async (upk : number): Promise<number | null> => {
+        const [rows] = await db.query<RowDataPacket[]>(
+            `select sub_category_id from user_view_log where upk = ? order by viewed_at desc`,
+            [upk]
+        );
+        if (rows.length === 0) return null;
+        return rows[0].sub_category_id;
+    },
+
 
 }

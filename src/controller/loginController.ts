@@ -14,7 +14,10 @@ export const loginController = {
             if (user === null) {
                 return res.status(401).json({ error: "Invalid credentials" });
             };
-
+            if (user.id === undefined) {
+                return res.status(401).json({ error: "no id" });
+            };
+            
             const id = user.id;
             const accessToken = jwtUtil.generateAccessToken(id);
             const refreshToken = await authService.createRefreshToken(id);

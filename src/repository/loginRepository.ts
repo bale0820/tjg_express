@@ -36,4 +36,49 @@ export const loginRepository = {
 
     },
 
+    findByUserEmail : async (userEmail: string): Promise<User> => {
+        const [rows] = await db.query<UserRow[]>(`select * from users where email = ?  `,[userEmail]);
+        return toCamel<User>(rows[0]) ;
+    },
+
+
+
+    saveSocial : async (user: User): Promise<boolean> => {
+    const [rows] = await db.query<ResultSetHeader>(
+      `
+      INSERT INTO users (
+        user_id,
+        email,
+        name,
+        password,
+        provider,
+        phone,
+        gender,
+        birthday,
+        address,
+        recommendation,
+        zonecode,
+        role
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+      [
+        user.userId,
+        user.email,
+        user.name,
+        user.password,
+        user.provider,
+        user.phone,
+        user.gender,
+        user.birthday,
+        user.address,
+        user.recommendation,
+        user.zonecode,
+        user.role
+      ]
+    );
+
+    return rows.affectedRows > 0;
+  }
+
 }
