@@ -17,7 +17,7 @@ export const loginController = {
             if (user.id === undefined) {
                 return res.status(401).json({ error: "no id" });
             };
-            
+
             const id = user.id;
             const accessToken = jwtUtil.generateAccessToken(id);
             const refreshToken = await authService.createRefreshToken(id);
@@ -142,8 +142,8 @@ export const loginController = {
         }
         const id = req.user.id;
 
-        loginService.findById(id);
-
+        const user = await loginService.findById(id);
+        return res.json(user);
     },
 
     findUserIdById: async (req: Request, res: Response, next: NextFunction) => {
@@ -164,4 +164,47 @@ export const loginController = {
         return res.json(result);
 
     },
+
+
+    issueSocialCookie: async (req: Request, res: Response, next: NextFunction) => {
+
+        try {
+            const bearaccessToken = req.headers.authorization;
+            const accessToken = bearaccessToken?.substring(7);
+
+            if (!accessToken) {
+                throw new Error("no accessToken");
+            }
+            if (!jwtUtil.validateToken(accessToken)) {
+                throw new Error("invalid accessToken");
+            }
+            const userId = jwtUtil.extractUserId(accessToken);
+            const refresh = await authService.createRefreshToken(userId);
+            const csrfToken = crypto.randomUUID();
+
+            res.cookie("refresh_token", refresh.token, {
+                httpOnly: true,
+                secure: true,        // HTTPS에서만 전송
+                path: "/",
+                maxAge: 7 * 24 * 60 * 60 * 1000, // ms 단위
+                sameSite: "none"     // 대소문자 중요 (Express는 소문자)
+
+            });
+
+            res.cookie("XSRF-TOKEN", csrfToken, {
+                httpOnly: false,
+                secure: true,        // HTTPS에서만 전송
+                path: "/",
+                maxAge: 7 * 24 * 60 * 60 * 1000, // ms 단위
+                sameSite: "none"     // 대소문자 중요 (Express는 소문자)
+
+            });
+            return res.send();
+
+
+        } catch (err) {
+            next(err);
+        }
+
+    }
 };

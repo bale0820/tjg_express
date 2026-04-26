@@ -10,6 +10,12 @@ import cookieParser from "cookie-parser";
 import { cartRoutes } from "./routes/cartRoutes";
 import { orderRoutes } from "./routes/orderRoutes";
 import cors from "cors";
+import { socialLoginRoutes } from "./routes/socialLoginRoutes";
+import { couponRoutes } from "./routes/couponRoutes";
+import { paymentRoutes } from "./routes/paymentRoutes";
+import { forecastRoutes } from "./routes/forecastRoutes";
+import { excelRoutes } from "./routes/excelRoutes";
+import { analyticesRoutes } from "./routes/analyticesRoutes";
 // const express = require("express");
 
 
@@ -32,6 +38,13 @@ app.use('/auth', loginRoutes);
 app.use('/member', loginRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
+app.use('/oauth2', socialLoginRoutes);
+app.use('/coupon', couponRoutes);
+app.use('/payment', paymentRoutes);
+app.use('/payment', paymentRoutes);
+app.use('/api/forecast', forecastRoutes);
+app.use('/excel', excelRoutes);
+app.use('/api/analytics', analyticesRoutes);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err);

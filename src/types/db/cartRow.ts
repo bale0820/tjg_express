@@ -18,7 +18,7 @@ import { RowDataPacket } from "mysql2";
 export interface CartRow extends RowDataPacket {
   cid: number;
   qty: number;
-
+  id: number;
   image_url: string;
   product_name: string;
   price: number;
