@@ -22,7 +22,7 @@ export const s3Service = {
 
       await s3.send(command);
 
-      // 👉 업로드 후 로컬 파일 삭제 (중요)
+      // 👉 업로드 후 로컬 파일 삭제 (중요)!
       fs.unlinkSync(file.path);
 
       // 👉 URL 반환 (DB 저장용)
