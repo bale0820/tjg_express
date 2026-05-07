@@ -16,6 +16,8 @@ import { paymentRoutes } from "./routes/paymentRoutes";
 import { forecastRoutes } from "./routes/forecastRoutes";
 import { excelRoutes } from "./routes/excelRoutes";
 import { analyticesRoutes } from "./routes/analyticesRoutes";
+import { priceRoutes } from "./routes/priceRoutes";
+import { deliveryRoutes } from "./routes/deliveryRoutes";
 // const express = require("express");
 
 
@@ -45,6 +47,8 @@ app.use('/payment', paymentRoutes);
 app.use('/api/forecast', forecastRoutes);
 app.use('/excel', excelRoutes);
 app.use('/api/analytics', analyticesRoutes);
+app.use('/api/admin', priceRoutes);
+app.use('/delivery', deliveryRoutes);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err);

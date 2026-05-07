@@ -2,7 +2,8 @@ import { couponRepository } from "@/repository/couponRepository";
 import { orderRepository } from "@/repository/orderRepository";
 import { UserCoupon } from "@/types/domain/UserCoupon";
 import { DailySalesDto } from "@/types/dto/dailySalesDto";
-import { ForecastResponseDto } from "@/types/dto/ForecastResponseDto";
+import { ForecastResponseDto } from "@/types/dto/forecastResponseDto";
+
 import { askOpenAI } from "@/util/askOpenAI";
 import { safeList } from "@/util/safeList";
 

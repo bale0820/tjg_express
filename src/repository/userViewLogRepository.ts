@@ -38,6 +38,14 @@ export const userViewLogRepository = {
         if (rows.length === 0) return null;
         return rows[0].sub_category_id;
     },
+    sumViewsByProduct :  async (ppk : number): Promise<number> => {
+        const [rows] = await db.query<RowDataPacket[]>(
+            `SELECT COALESCE(SUM(l.qty), 0) as qty FROM User_View_Log l WHERE l.ppk = ?`,
+            [ppk]
+        );
+        if (rows.length === 0) return 0;
+        return rows[0].qty;
+    }
 
 
 }

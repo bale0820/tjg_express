@@ -27,7 +27,7 @@ export const loginController = {
                 httpOnly: true,
                 secure: true,        // HTTPS에서만 전송
                 path: "/",
-                maxAge: 60 * 1000, // ms 단위
+                maxAge: 7 * 24 * 60 * 60 * 1000, // ms 단위
                 sameSite: "none"     // 대소문자 중요 (Express는 소문자)
             });
 

@@ -6,5 +6,5 @@ export const analyticsService = {
         const data = await analyticsRepository.findAll();
 
         return data;
-    }
+    },
 };

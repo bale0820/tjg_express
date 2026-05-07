@@ -1,7 +1,7 @@
 import { toCamel } from "@/util/tocamel";
 import { promisePool as db } from "../config/db";
 import { UserCoupon } from "@/types/domain/UserCoupon";
-import { UserCouponRow } from "@/types/db/UsercouponRow";
+import { UserCouponRow } from "@/types/db/UserCouponRow";
 
 
 

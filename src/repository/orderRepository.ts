@@ -1,7 +1,7 @@
 import { Order } from "@/types/domain/order";
 import { promisePool as db } from "../config/db";
 import { OrderRow } from "@/types/db/OrderRow";
-import { ResultSetHeader } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { ProductInfo } from "@/types/dto/productInfo";
 import { DailySalesDto } from "@/types/dto/dailySalesDto";
 import { DailySalesDtoRow } from "@/types/db/DailySalesDtoRow";
@@ -218,6 +218,12 @@ export const orderRepository = {
             [ppk]
         );
         return rows;
+    },
+
+
+    countOrdersByProduct : async(ppk : number) : Promise<number> =>{
+        const [rows] = await db.query<RowDataPacket[]>("SELECT  COALESCE(SUM(od.qty), 0) as sum FROM Order_Detail od WHERE od.ppk = ?",[ppk]);
+        return  Number(rows[0].sum);
     }
 
 }
