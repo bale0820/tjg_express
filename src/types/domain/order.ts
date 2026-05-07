@@ -2,7 +2,7 @@ import { DeliveryStatus } from "./deliveryStatus";
 import { OrderDetail } from "./orderDetail";
 
 export interface Order {
-  id: number;
+  id?: number;
   address1: string;
   address2: string;
 

@@ -6,6 +6,7 @@ export interface Cartitem {
   qty: number;
 
   product: {
+    id : number;
     productName: string;
     imageUrl: string;
     price: number;

@@ -12,4 +12,6 @@ router.post('/logout', loginController.logout);
 router.get('/user',authMiddleware, loginController.findUserById);
 router.post('/idcheck', loginController.findUserIdById);
 router.post('/signup', loginController.signup);
+router.post('/signup', loginController.signup);
+router.post('/social-cookie', loginController.issueSocialCookie);
 export const  loginRoutes = router;

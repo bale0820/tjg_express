@@ -8,8 +8,8 @@ export interface Product {
   description: string;
   imageUrl: string;
   imageUrlName: string;
-  isHotDeal: boolean;
-  isMemberSpecial: boolean;
+  hotDeal: boolean;
+  memberSpecial: boolean;
   notes: string;
   origin: string;
   pid: string;
@@ -22,5 +22,5 @@ export interface Product {
   unit: string;
   weight: string;
   categorySubId: number;
-  upk: number;
+  upk?: number;
 }

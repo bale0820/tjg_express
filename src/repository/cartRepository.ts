@@ -8,7 +8,7 @@ import { Cart } from "@/types/domain/cart";
 import { CreateCartDto } from "@/types/dto/createCartDto";
 export const cartRepository = {
     findById: async (id: number): Promise<Cartitem[]> => {
-        const [rows] = await db.query<CartRow[]>(`select c.cid, c.qty, p.image_url, p.product_name, p.price, p.dc, p.count from users u, product p, cart c where c.ppk = p.id and u.id = c.upk and c.upk = ?`, [id]);
+        const [rows] = await db.query<CartRow[]>(`select c.cid, c.qty,p.id, p.image_url, p.product_name, p.price, p.dc, p.count from users u, product p, cart c where c.ppk = p.id and u.id = c.upk and c.upk = ?`, [id]);
 
 
 
@@ -20,6 +20,7 @@ export const cartRepository = {
                     cid: row.cid,
                     qty: row.qty,
                     product: {
+                        id : row.id,
                         productName: row.product_name,
                         imageUrl: row.image_url,
                         price: row.price,
@@ -67,5 +68,35 @@ ON DUPLICATE KEY UPDATE qty = qty + VALUES(qty);`, [c.addedAt, c.qty, c.ppk, c.u
             update cart set qty = ? where ppk = ? and upk = ?`, [c.qty, c.ppk, c.upk]);
         return rows.affectedRows > 0;
     },
+
+
+
+
+    findAllWithProductByCidIn : async(cidList : number[]) : Promise<Cartitem[]>=> {
+          const [rows] = await db.query<CartRow[]>(`
+            select * from cart c, product p  where c.ppk = p.id and cid in (?)`, [cidList]);
+
+         const cartMap = new Map<number, Cartitem>();
+
+         rows.forEach(row => {
+            if (!cartMap.has(row.cid)) {
+                cartMap.set(row.cid, {
+                    cid: row.cid,
+                    qty: row.qty,
+                    product: {
+                        id : row.id,
+                        productName: row.product_name,
+                        imageUrl: row.image_url,
+                        price: row.price,
+                        dc: row.dc,
+                        count: row.count
+                    }
+                });
+            }
+        });
+
+        return Array.from(cartMap.values());
+
+    }
 
 }    
