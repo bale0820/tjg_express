@@ -48,6 +48,8 @@ export const s3Service = {
 
       await s3.send(command);
 
+      
+
       return true;
 
     } catch(err) {
