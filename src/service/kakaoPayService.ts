@@ -1,4 +1,4 @@
-import { KakaoPay } from "@/types/dto/KakaoPay";
+import { KakaoPay } from "@/types/dto/kakaoPay";
 import axios from "axios";
 import qs from "qs";
 

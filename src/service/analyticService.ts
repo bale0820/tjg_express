@@ -1,5 +1,5 @@
 import { analyticsRepository } from "@/repository/analyticRepository";
-import { ConversionRateDto } from "@/types/dto/ConversionRateDto";
+import { ConversionRateDto } from "@/types/dto/conversionRateDto";
 
 export const analyticsService = {
     getConversionRates: async (): Promise<ConversionRateDto[]> => {

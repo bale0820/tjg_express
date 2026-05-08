@@ -3,7 +3,7 @@ import { orderRepository } from "@/repository/orderRepository";
 import { DeliveryStatus } from "@/types/domain/deliveryStatus";
 import { Order } from "@/types/domain/order";
 import { KakaoApproveResponse } from "@/types/dto/kakaoApproveResponse";
-import { KakaoPay } from "@/types/dto/KakaoPay";
+import { KakaoPay } from "@/types/dto/kakaoPay";
 
 
 export const orderService = {

@@ -2,7 +2,7 @@ import { orderRepository } from "@/repository/orderRepository";
 import { kakaoPayService } from "@/service/kakaoPayService";
 import { orderService } from "@/service/orderService";
 import { KakaoApproveResponse } from "@/types/dto/kakaoApproveResponse";
-import { KakaoPay } from "@/types/dto/KakaoPay";
+import { KakaoPay } from "@/types/dto/kakaoPay";
 import { toCamel } from "@/util/tocamel";
 import { NextFunction, Request, Response } from "express";
 
