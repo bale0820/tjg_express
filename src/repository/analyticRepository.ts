@@ -1,6 +1,6 @@
 import { toCamel } from "@/util/tocamel";
 import { promisePool as db } from "../config/db";
-import { ConversionRateDto } from "@/types/dto/ConversionRateDto";
+import { ConversionRateDto } from "@/types/dto/conversionRateDto";
 import { ConversionRateRow } from "@/types/db/ConversionRateRow";
 
 export const analyticsRepository = {
