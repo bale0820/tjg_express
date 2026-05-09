@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch . --exec ts-node -r tsconfig-paths/register src/app.ts",
-    "build": "tsc"
+    "build": "tsc && tsc-alias"
   },
   "repository": {
     "type": "git",
@@ -46,6 +45,7 @@
     "@types/qs": "^6.15.0",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.17",
     "typescript": "^6.0.2"
   }
 }
