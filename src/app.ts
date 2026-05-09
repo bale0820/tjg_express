@@ -24,7 +24,7 @@ console.log("안녕");
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3000", // 허용할 프론트 주소
+  origin: ["http://localhost:3000", "https://candy-frontend-taupe.vercel.app" ], // 허용할 프론트 주소
   credentials: true               // 쿠키/인증 허용
 }));
 
