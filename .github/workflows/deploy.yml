@@ -27,4 +27,4 @@ jobs:
 
             npm run build
 
-            pm2 restart candy
+            pm2 reload candy || pm2 start dist/app.js --name candy
