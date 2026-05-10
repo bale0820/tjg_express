@@ -20,7 +20,7 @@ import { priceRoutes } from "./routes/priceRoutes";
 import { deliveryRoutes } from "./routes/deliveryRoutes";
 // const express = require("express");
 
-console.log("안녕!!!");
+console.log("안녕!!!!!");
 const app = express();
 
 app.use(cors({
