@@ -19,12 +19,18 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
 
           script: |
-            cd /home/ubuntu/candy/express/tjg_express
+           cd /home/ubuntu/candy/express/tjg_express
 
-            git pull origin main
+           git fetch origin
 
-            npm install
+           git reset --hard origin/main
 
-            npm run build
+           npm ci
 
-            pm2 reload candy || pm2 start dist/app.js --name candy
+           rm -rf dist
+
+           npm run build
+
+           pm2 reload candy || pm2 start dist/app.js --name candy
+
+           pm2 save
