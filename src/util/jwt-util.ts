@@ -8,7 +8,7 @@ if (!SECRET) {
 }
 
 // ✅ AccessToken: 10분
-const ACCESS_TOKEN_EXPIRE = "10s";
+const ACCESS_TOKEN_EXPIRE = "10m";
 
 export const jwtUtil = {
 
