@@ -51,7 +51,7 @@ app.use('/api/admin', priceRoutes);
 app.use('/delivery', deliveryRoutes);
 app.get('/health', (req, res) => {
 
-    console.log("접속확인!!!!!");
+    console.log("접속확인!!!!!!");
 
     res.json({
         status: "ok"
