@@ -21,16 +21,55 @@ jobs:
           script: |
            cd /home/ubuntu/candy/express/tjg_express
 
-           git fetch origin
+           # git fetch origin
 
-           git reset --hard origin/main
+           # git reset --hard origin/main
 
-           npm ci
+           # npm ci
 
-           rm -rf dist
+           # rm -rf dist
 
-           npm run build
+           # npm run build
 
-           pm2 reload candy || pm2 start dist/app.js --name candy
+           # pm2 reload candy || pm2 start dist/app.js --name candy
 
-           pm2 save
+           # pm2 save
+           name: Express Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH Deploy
+        uses: appleboy/ssh-action@v1.0.3
+
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+
+          script: |
+           cd /home/ubuntu/candy/express/tjg_express
+           ./deploy-rest.sh
+
+          #  git fetch origin
+
+          #  git reset --hard origin/main
+
+          #  npm ci
+
+          #  rm -rf dist
+
+          #  npm run build
+
+          #  pm2 reload candy || pm2 start dist/app.js --name candy
+
+          #  pm2 save
+          
+
