@@ -1,5 +1,9 @@
 name: Express Deploy
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+  
 on:
   push:
     branches:
