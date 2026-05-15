@@ -49,8 +49,14 @@ app.use('/excel', excelRoutes);
 app.use('/api/analytics', analyticesRoutes);
 app.use('/api/admin', priceRoutes);
 app.use('/delivery', deliveryRoutes);
-app.get('/health', () => {
+app.get('/health', (req, res) => {
+
     console.log("접속확인");
+
+    res.json({
+        status: "ok"
+    });
+
 });
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
